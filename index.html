@@ -23,14 +23,28 @@
     }
 
     /* 상단 최소 헤더 (깔끔하게) */
-    .header {
+       .header {
       position: sticky;
       top: 0;
       z-index: 50;
       backdrop-filter: blur(14px);
       background: rgba(249, 250, 251, 0.9);
       border-bottom: 1px solid rgba(209, 213, 219, 0.6);
+
+      /* 처음에는 숨김 상태 */
+      opacity: 0;
+      transform: translateY(-100%);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
     }
+
+    /* 두 번째 섹션부터 보여줄 때 적용할 클래스 */
+    .header--visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
     .header__inner {
       display: flex;
       justify-content: space-between;
@@ -522,7 +536,26 @@
   </footer>
 
   <script>
+    // 1) 푸터 연도 자동 설정
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 2) 스크롤 위치에 따라 헤더 보이기/숨기기
+    const header = document.querySelector('.header');
+    const aboutSection = document.getElementById('about'); // 두 번째 섹션
+
+    function updateHeaderVisibility() {
+      if (!header || !aboutSection) return;
+
+      // About 섹션이 거의 화면 상단에 올 때 헤더를 보이게 함
+      const triggerPoint = aboutSection.offsetTop - 80; // 약간 여유
+
+      if (window.scrollY >= triggerPoint) {
+        header.classList.add('header--visible');
+      } else {
+        header.classList.remove('header--visible');
+      }
+    }
+
+    window.addEventListener('scroll', updateHeaderVisibility);
+    window.addEventListener('load', updateHeaderVisibility);
   </script>
-</body>
-</html>
