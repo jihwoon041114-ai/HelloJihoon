@@ -4,11 +4,238 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>임지훈 · Career Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="임지훈 경력 및 프로젝트 포트폴리오 사이트" />
+
+  <style>
+    /* 전체 스타일 */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background-color: #f3f4f6;
+      color: #111827;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    .header {
+      position: sticky;
+      top: 0;
+      background: rgba(249, 250, 251, 0.85);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(209, 213, 219, 0.6);
+      z-index: 50;
+    }
+    .header__inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.9rem 0;
+    }
+    .logo {
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.16em;
+    }
+    .nav { display: flex; gap: 1rem; }
+    .nav a {
+      text-decoration: none;
+      color: #4b5563;
+      padding: 0.4rem 0.7rem;
+      border-radius: 99px;
+      transition: 0.15s;
+      font-size: 0.9rem;
+    }
+    .nav a:hover {
+      background: #111827;
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 5rem 0 3.5rem;
+      background: radial-gradient(circle at top left, #e0f2fe, #eff6ff, #f9fafb);
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .hero__eyebrow {
+      margin: 0 0 0.5rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      color: #6b7280;
+    }
+    .hero__title {
+      margin: 0 0 1rem;
+      font-size: clamp(2rem, 4vw, 2.6rem);
+      line-height: 1.3;
+    }
+    .hero__highlight {
+      background: linear-gradient(120deg, #2563eb, #16a34a);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+    .hero__subtitle {
+      margin: 0 0 1.5rem;
+      color: #4b5563;
+      max-width: 720px;
+      line-height: 1.6;
+    }
+    .hero__actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 0.7rem 1.3rem;
+      border-radius: 99px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .btn--primary {
+      background: #111827;
+      color: #fff;
+    }
+    .btn--primary:hover {
+      background: #000;
+    }
+    .btn--ghost {
+      border: 1px solid #d1d5db;
+      color: #111827;
+    }
+    .btn--ghost:hover {
+      background: #e5e7eb;
+    }
+
+    /* Section 공통 */
+    .section { padding: 5rem 0; background: #fff; }
+    .section--light { background: #f9fafb; }
+    .section__title { font-size: 1.7rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .section__subtitle { color: #6b7280; max-width: 640px; margin: 0 0 1.5rem; }
+
+    /* About */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+    }
+    .about__main p {
+      margin-top: 0;
+      line-height: 1.7;
+      color: #374151;
+    }
+    .about__meta {
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+      padding: 1.3rem;
+      background: #fff;
+    }
+    .about__list { padding: 0; list-style: none; margin: 0; display: grid; gap: 0.7rem; }
+    .about__list span {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      letter-spacing: 0.08em;
+    }
+    .about__list strong { font-size: 0.92rem; }
+
+    /* Experience */
+    .timeline {
+      display: grid;
+      gap: 1.5rem;
+    }
+    .timeline__item {
+      padding: 1.4rem;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+    }
+    .timeline__meta {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-bottom: 0.4rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* Projects */
+    .cards {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+    .card {
+      background: #fff;
+      padding: 1.4rem;
+      border-radius: 1rem;
+      border: 1px solid #e5e7eb;
+    }
+    .card__desc {
+      margin-top: 0.3rem;
+      line-height: 1.6;
+      color: #4b5563;
+    }
+
+    /* Skills */
+    .skills__grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      background: #e5e7eb;
+      padding: 0.35rem 0.7rem;
+      border-radius: 99px;
+      font-size: 0.8rem;
+    }
+
+    /* Contact */
+    .contact__box {
+      background: #fff;
+      padding: 1.3rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 1rem;
+    }
+    .contact__item a {
+      text-decoration: none;
+      color: #2563eb;
+    }
+    .contact__item a:hover { text-decoration: underline; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    @media (max-width: 768px) {
+      .about__grid { grid-template-columns: 1fr; }
+      .nav { gap: 0.5rem; }
+      .nav a { font-size: 0.8rem; }
+    }
+  </style>
 </head>
+
 <body>
-  <!-- 상단 네비게이션 -->
+
+  <!-- Header -->
   <header class="header">
     <div class="container header__inner">
       <div class="logo">IM JIHOON</div>
@@ -22,216 +249,160 @@
     </div>
   </header>
 
-  <!-- 히어로 섹션 -->
-  <main>
-    <section class="hero">
-      <div class="container hero__inner">
-        <div class="hero__text">
-          <p class="hero__eyebrow">Career Portfolio</p>
-          <!-- 여기 한 줄 소개 문구만 나중에 바꾸시면 됩니다 -->
-          <h1 class="hero__title">
-            아랍어·국제정치·콘텐츠를 잇는<br />
-            <span class="hero__highlight">임지훈</span>입니다.
-          </h1>
-          <p class="hero__subtitle">
-            언어와 글로벌 경험을 기반으로, 여행·교육·디지털 콘텐츠를 설계하고 있습니다.
-            이 사이트는 저의 경험, 프로젝트, 그리고 앞으로의 방향을 한눈에 볼 수 있도록 정리한 공간입니다.
-          </p>
-          <div class="hero__actions">
-            <!-- 메일 주소는 나중에 실제 메일로 바꾸시면 됩니다 -->
-            <a href="#contact" class="btn btn--primary">함께 이야기해요</a>
-            <a href="#projects" class="btn btn--ghost">프로젝트 보기</a>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <p class="hero__eyebrow">Career Portfolio</p>
+      <h1 class="hero__title">
+        아랍어·국제정치·콘텐츠를 잇는<br />
+        <span class="hero__highlight">임지훈</span>입니다.
+      </h1>
+      <p class="hero__subtitle">
+        언어와 글로벌 경험을 기반으로 여행·교육·디지털 콘텐츠를 설계합니다.
+      </p>
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">함께 이야기해요</a>
+        <a href="#projects" class="btn btn--ghost">프로젝트 보기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section section--light">
+    <div class="container">
+      <h2 class="section__title">About</h2>
+      <p class="section__subtitle">간단한 자기소개를 적는 공간입니다.</p>
+
+      <div class="about__grid">
+        <div class="about__main">
+          <p>저는 한국외국어대학교에서 아랍어와 국제정치를 공부하고 있습니다.</p>
+          <p>사우디·베트남·중앙아시아 등 다양한 지역을 기반으로 콘텐츠·연구·여행 프로젝트를 진행합니다.</p>
+          <p>이 사이트는 저의 경험과 역량, 프로젝트를 정리한 포트폴리오입니다.</p>
+        </div>
+
+        <div class="about__meta">
+          <ul class="about__list">
+            <li><span>이름</span><strong>임지훈</strong></li>
+            <li><span>전공</span><strong>아랍어 / 국제학</strong></li>
+            <li><span>관심 분야</span><strong>여행·콘텐츠 / 국제교류</strong></li>
+            <li><span>거주지</span><strong>대한민국, 서울</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience -->
+  <section id="experience" class="section">
+    <div class="container">
+      <h2 class="section__title">Experience</h2>
+      <p class="section__subtitle">인턴십, 대외활동, 프로그램 등을 정리합니다.</p>
+
+      <div class="timeline">
+        <div class="timeline__item">
+          <div class="timeline__meta">
+            <span>2026.01 – 2026.03 (예정)</span>
+            <span>사우디아라비아 · 리야드</span>
+          </div>
+          <h3 class="timeline__title">킹살만 글로벌 아카데미 (Tourism 코스)</h3>
+          <p class="timeline__desc">사우디 언어·문화·관광을 경험하는 단기 몰입 프로그램 예정.</p>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__meta">
+            <span>2023 – 현재</span>
+            <span>한국외국어대학교</span>
+          </div>
+          <h3 class="timeline__title">아랍어 및 국제학 전공</h3>
+          <p class="timeline__desc">언어·국제정치·지역 연구를 공부하고 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section section--light">
+    <div class="container">
+      <h2 class="section__title">Projects</h2>
+      <p class="section__subtitle">개발·연구·콘텐츠 프로젝트를 소개합니다.</p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>여행 다이어리 / 베트남 전국일주</h3>
+          <p class="card__desc">여행 경험을 기반으로 한 다이어리·영상·블로그 콘텐츠 제작.</p>
+        </div>
+
+        <div class="card">
+          <h3>아랍어 학습 웹사이트</h3>
+          <p class="card__desc">아랍어 필사·문장 연습용 개인 학습 사이트 개발.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section__title">Skills</h2>
+      <p class="section__subtitle">언어, 도구, 관심 분야 정리</p>
+
+      <div class="skills__grid">
+        <div>
+          <h3>Languages</h3>
+          <div class="tag-list">
+            <span class="tag">한국어</span>
+            <span class="tag">영어</span>
+            <span class="tag">아랍어</span>
+            <span class="tag">베트남어</span>
+          </div>
+        </div>
+
+        <div>
+          <h3>Tools & Tech</h3>
+          <div class="tag-list">
+            <span class="tag">GitHub Pages</span>
+            <span class="tag">HTML / CSS</span>
+            <span class="tag">Notion</span>
+            <span class="tag">영상 편집</span>
+          </div>
+        </div>
+
+        <div>
+          <h3>Interests</h3>
+          <div class="tag-list">
+            <span class="tag">여행 콘텐츠</span>
+            <span class="tag">국제교류</span>
+            <span class="tag">중동·베트남 연구</span>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- About 섹션 -->
-    <section id="about" class="section section--light">
-      <div class="container section__inner">
-        <h2 class="section__title">About</h2>
-        <p class="section__subtitle">
-          자기소개와 현재 하고 있는 일, 관심 분야를 간단하게 적는 공간입니다.
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section section--light">
+    <div class="container">
+      <h2 class="section__title">Contact</h2>
+      <p class="section__subtitle">연락하고 싶다면 아래로</p>
+
+      <div class="contact__box">
+        <p class="contact__item">
+          이메일: <a href="mailto:example@email.com">
+            example@email.com
+          </a>
         </p>
-        <div class="about__grid">
-          <div class="about__main">
-            <!-- 이 문단들을 본인 소개에 맞게 수정하시면 됩니다 -->
-            <p>
-              저는 한국외국어대학교에서 아랍어와 국제정치를 공부하며,
-              언어·문화·여행·디지털 콘텐츠를 연결하는 일에 큰 흥미를 가지고 있습니다.
-            </p>
-            <p>
-              사우디, 베트남, 중앙아시아 등 다양한 지역에 대한 관심을 바탕으로
-              여행 콘텐츠 제작, 국제 교류 프로그램 참여, 프로젝트 기획을 경험해 왔습니다.
-            </p>
-            <p>
-              이 사이트는 저의 학업·대외활동·개인 프로젝트를 정리해,
-              함께 협업할 수 있는 사람들에게 제 역량을 명확하게 보여주기 위해 만들었습니다.
-            </p>
-          </div>
-          <div class="about__meta">
-            <ul class="about__list">
-              <li><span>이름</span><strong>임지훈</strong></li>
-              <li><span>전공</span><strong>아랍어 / 국제학</strong></li>
-              <li><span>관심 분야</span><strong>여행·콘텐츠, 국제교류, 언어교육</strong></li>
-              <li><span>거주지</span><strong>대한민국, 서울</strong></li>
-            </ul>
-          </div>
-        </div>
       </div>
-    </section>
-
-    <!-- Experience 섹션 -->
-    <section id="experience" class="section">
-      <div class="container section__inner">
-        <h2 class="section__title">Experience</h2>
-        <p class="section__subtitle">
-          인턴십, 대외활동, 프로그램 참여 등 주요 경험들을 연표 형태로 정리하는 구간입니다.
-        </p>
-
-        <div class="timeline">
-          <!-- 항목 하나씩 복사해서 추가하시면 됩니다 -->
-          <article class="timeline__item">
-            <div class="timeline__meta">
-              <span class="timeline__period">2026.01 – 2026.03 (예정)</span>
-              <span class="timeline__location">사우디아라비아 · 리야드</span>
-            </div>
-            <h3 class="timeline__title">킹살만 글로벌 아카데미 단기 몰입 프로그램 (Tourism 코스)</h3>
-            <p class="timeline__desc">
-              사우디의 관광·문화·언어를 집중적으로 경험하는 단기 몰입 프로그램에 참가 예정입니다.
-              현지에서의 언어·문화 체험을 바탕으로 여행 및 교육 콘텐츠로 확장할 계획입니다.
-            </p>
-          </article>
-
-          <article class="timeline__item">
-            <div class="timeline__meta">
-              <span class="timeline__period">2023 – 현재</span>
-              <span class="timeline__location">한국외국어대학교</span>
-            </div>
-            <h3 class="timeline__title">아랍어 및 국제학 전공</h3>
-            <p class="timeline__desc">
-              아랍어 어학, 중동 지역 연구, 국제정치·국제법 등의 과목을 수강하며
-              언어 능력과 글로벌 이슈에 대한 이해를 함께 쌓고 있습니다.
-            </p>
-          </article>
-
-          <!-- TODO: 여기 아래로 대외활동/인턴/프로젝트 경험을 계속 추가하시면 됩니다 -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Projects 섹션 -->
-    <section id="projects" class="section section--light">
-      <div class="container section__inner">
-        <h2 class="section__title">Projects</h2>
-        <p class="section__subtitle">
-          블로그, 유튜브, 웹사이트, 연구 과제 등 보여주고 싶은 작업들을 모아두는 공간입니다.
-        </p>
-
-        <div class="cards">
-          <!-- 프로젝트 카드 예시 1 -->
-          <article class="card">
-            <h3 class="card__title">여행 다이어리 & 베트남 전국 일주 콘텐츠</h3>
-            <p class="card__meta">Travel · Content · 개인 프로젝트</p>
-            <p class="card__desc">
-              베트남 전국 일주 경험을 바탕으로 여행 다이어리 템플릿과
-              블로그/영상 콘텐츠를 제작했습니다. 실제 여행자에게 도움이 되는
-              정보와 기록 방식을 고민했습니다.
-            </p>
-            <!-- 여기에 나중에 GitHub / 블로그 / 유튜브 링크를 추가할 수 있습니다 -->
-          </article>
-
-          <!-- 프로젝트 카드 예시 2 -->
-          <article class="card">
-            <h3 class="card__title">아랍어 학습용 웹사이트 (개인 학습용)</h3>
-            <p class="card__meta">Web · Language Learning</p>
-            <p class="card__desc">
-              아랍어 알파벳, 단어, 문장을 필사하고 연습할 수 있는
-              개인용 학습 사이트를 기획하고 개발 중입니다.
-            </p>
-          </article>
-
-          <!-- 필요하면 카드 계속 복사/추가 -->
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills 섹션 -->
-    <section id="skills" class="section">
-      <div class="container section__inner">
-        <h2 class="section__title">Skills</h2>
-        <p class="section__subtitle">
-          언어, 도구, 관심 분야를 한눈에 볼 수 있도록 정리합니다.
-        </p>
-
-        <div class="skills__grid">
-          <div>
-            <h3 class="skills__title">Languages</h3>
-            <div class="tag-list">
-              <span class="tag">한국어 (Native)</span>
-              <span class="tag">영어</span>
-              <span class="tag">아랍어</span>
-              <span class="tag">베트남어 (학습 중)</span>
-            </div>
-          </div>
-          <div>
-            <h3 class="skills__title">Tools & Tech</h3>
-            <div class="tag-list">
-              <span class="tag">GitHub Pages</span>
-              <span class="tag">HTML / CSS</span>
-              <span class="tag">Notion</span>
-              <span class="tag">영상 편집</span>
-            </div>
-          </div>
-          <div>
-            <h3 class="skills__title">Interests</h3>
-            <div class="tag-list">
-              <span class="tag">여행 콘텐츠</span>
-              <span class="tag">국제교류 프로그램</span>
-              <span class="tag">중동·베트남 지역 연구</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact 섹션 -->
-    <section id="contact" class="section section--light">
-      <div class="container section__inner">
-        <h2 class="section__title">Contact</h2>
-        <p class="section__subtitle">
-          함께 이야기해보고 싶으시다면 아래 채널로 연락해 주세요.
-        </p>
-
-        <div class="contact__box">
-          <!-- 이메일 주소는 실제 사용하시는 메일로 바꿔주세요 -->
-          <p class="contact__item">
-            이메일:
-            <a href="mailto:example@email.com">example@email.com</a>
-          </p>
-          <!-- 필요시 블로그/유튜브/링크드인 등을 추가 -->
-          <!--
-          <p class="contact__item">
-            블로그: <a href="#" target="_blank">블로그 링크</a>
-          </p>
-          <p class="contact__item">
-            유튜브: <a href="#" target="_blank">유튜브 채널</a>
-          </p>
-          -->
-        </div>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
 
   <footer class="footer">
-    <div class="container footer__inner">
-      <p>© <span id="year"></span> IM JIHOON. All rights reserved.</p>
-    </div>
+    © <span id="year"></span> IM JIHOON. All rights reserved.
   </footer>
 
   <script>
-    // 푸터 연도를 자동으로 현재 연도로 설정
-    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
+
 </body>
 </html>
